@@ -18,18 +18,19 @@ const App = () => {
             <Router>
                 <Fragment>
                     <Navbar />
-
                     <Switch>
-                        <Route exact path='/' component={Landing} />
-                        <section className='container'>
-                            <Alert />
-                            <Route
-                                exact
-                                path='/register'
-                                component={Register}
-                            />
-                            <Route exact path='/login' component={Login} />
-                        </section>
+                        <Fragment>
+                            <Route exact path='/' component={Landing} />
+                            <section className='container'>
+                                <Alert />
+                                <Route
+                                    exact
+                                    path='/register'
+                                    component={Register}
+                                />
+                                <Route exact path='/login' component={Login} />
+                            </section>
+                        </Fragment>
                     </Switch>
                 </Fragment>
             </Router>
