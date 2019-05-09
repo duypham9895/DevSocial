@@ -20,7 +20,6 @@ const Login = ({ login, isAuthenticated }) => {
         login(email, password);
     };
     if (isAuthenticated) {
-        console.log('asd');
         return <Redirect to='/dashboard' />;
     }
 

@@ -162,6 +162,7 @@
     outline: none;
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
+    font: inherit;
 }
 
 .btn.btn-primary {
@@ -649,5 +650,30 @@ img {
     .post a,
     .post button {
         padding: 0.3rem 0.4rem;
+    }
+}
+
+.hide {
+    animation: hide 3s ease-in-out;
+}
+.show {
+    animation: show 0.5s ease-in-out;
+}
+
+@keyframes hide {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes show {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

@@ -29,7 +29,7 @@ const Register = ({ setAlert, register, isAuthenticatic }) => {
 
     // Redirect if registered
     if (isAuthenticatic) {
-        return <Redirect to='/' />;
+        return <Redirect to='/dashboard' />;
     }
 
     return (

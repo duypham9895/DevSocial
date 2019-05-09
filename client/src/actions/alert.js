@@ -7,6 +7,13 @@ export const setAlert = (msg, alertType, timeout = 5000) => dispatch => {
         type: SET_ALERT,
         payload: { msg, alertType, id }
     });
-
+    // Transition when disappear
+    setTimeout(() => {
+        document.documentElement.scrollTop = 0;
+        var out = document.getElementsByClassName('alert');
+        for (let i = 0; i < out.length; i++) {
+            out[i].classList.add('hide');
+        }
+    }, 3000);
     setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
 };
