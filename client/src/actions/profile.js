@@ -1,9 +1,16 @@
 import axios from 'axios';
-import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, UPDATE_PROFILE } from './types';
+import { setAlert, removeAlert } from './alert';
+import {
+    GET_PROFILE,
+    PROFILE_ERROR,
+    UPDATE_PROFILE,
+    ACCOUNT_DELETED,
+    CLEAR_PROFILE
+} from './types';
 
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {
+    // dispatch(removeAlert());
     try {
         const res = await axios.get('/api/profile/me');
         dispatch({
@@ -27,6 +34,7 @@ export const createProfile = (
     history,
     edit = false
 ) => async dispatch => {
+    dispatch(removeAlert());
     try {
         const config = {
             headers: {
@@ -45,6 +53,7 @@ export const createProfile = (
         if (!edit) {
             history.push('/dashboard');
         }
+        setTimeout(() => dispatch(removeAlert()), 3000);
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -63,6 +72,7 @@ export const createProfile = (
 
 // Add Experience
 export const addExperience = (formData, history) => async dispatch => {
+    dispatch(removeAlert());
     try {
         const config = {
             headers: {
@@ -77,6 +87,7 @@ export const addExperience = (formData, history) => async dispatch => {
         });
         dispatch(setAlert('Experience Added', 'success'));
         history.push('/dashboard');
+        setTimeout(() => dispatch(removeAlert()), 3000);
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -95,6 +106,7 @@ export const addExperience = (formData, history) => async dispatch => {
 
 // Add Education
 export const addEducation = (formData, history) => async dispatch => {
+    dispatch(removeAlert());
     try {
         const config = {
             headers: {
@@ -109,6 +121,7 @@ export const addEducation = (formData, history) => async dispatch => {
         });
         dispatch(setAlert('Education Added', 'success'));
         history.push('/dashboard');
+        setTimeout(() => dispatch(removeAlert()), 3000);
     } catch (err) {
         const errors = err.response.data.errors;
 
@@ -122,5 +135,73 @@ export const addEducation = (formData, history) => async dispatch => {
                 status: err.response.status
             }
         });
+    }
+};
+
+// Delete experience
+export const deleteExperience = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/experience/${id}`);
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        dispatch(setAlert('Experience Removed', 'success'));
+        setTimeout(() => dispatch(removeAlert()), 3000);
+    } catch (err) {
+        dispatch(removeAlert());
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+
+// Delete Education
+export const deleteEducation = id => async dispatch => {
+    try {
+        const res = await axios.delete(`/api/profile/education/${id}`);
+        dispatch({
+            type: UPDATE_PROFILE,
+            payload: res.data
+        });
+        dispatch(setAlert('Education Removed', 'success'));
+        setTimeout(() => dispatch(removeAlert()), 3000);
+    } catch (err) {
+        dispatch(removeAlert());
+        dispatch({
+            type: PROFILE_ERROR,
+            payload: {
+                msg: err.response.statusText,
+                status: err.response.status
+            }
+        });
+    }
+};
+
+// Delete Profile & Account
+export const deleteAccount = id => async dispatch => {
+    if (window.confirm('Are you sure ? This can NOT be undone !')) {
+        try {
+            const res = await axios.delete('/api/profile');
+            dispatch({ type: CLEAR_PROFILE });
+            dispatch({ type: ACCOUNT_DELETED });
+            dispatch(
+                setAlert('Your account has been permanently deleted', 'dark')
+            );
+            setTimeout(() => dispatch(removeAlert()), 3000);
+        } catch (err) {
+            dispatch(removeAlert());
+            dispatch({
+                type: PROFILE_ERROR,
+                payload: {
+                    msg: err.response.statusText,
+                    status: err.response.status
+                }
+            });
+        }
     }
 };

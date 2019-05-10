@@ -27,11 +27,15 @@ const AddEducation = ({ addEducation, history }) => {
         description
     } = formData;
 
-    const onChange = e =>
+    const onChange = e => {
+        if (from > to) {
+            return;
+        }
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
         });
+    };
 
     const onSubmit = e => {
         e.preventDefault();
@@ -69,7 +73,7 @@ const AddEducation = ({ addEducation, history }) => {
                 <div className='form-group'>
                     <input
                         type='text'
-                        placeholder='Field of Study'
+                        placeholder='* Field of Study'
                         name='fieldofstudy'
                         value={fieldofstudy}
                         onChange={e => onChange(e)}
@@ -82,16 +86,6 @@ const AddEducation = ({ addEducation, history }) => {
                         name='from'
                         value={from}
                         onChange={e => onChange(e)}
-                    />
-                </div>
-                <div className='form-group'>
-                    <h4>To Date</h4>
-                    <input
-                        type='date'
-                        name='to'
-                        value={to}
-                        onChange={e => onChange(e)}
-                        disabled={toDateDisabled ? 'disabled' : ''}
                     />
                 </div>
                 <div className='form-group'>
@@ -112,6 +106,28 @@ const AddEducation = ({ addEducation, history }) => {
                         Current Study
                     </p>
                 </div>
+                {current ? (
+                    <div className='form-group'>
+                        <h4>To Date</h4>
+                        <input
+                            type='text'
+                            name='to'
+                            value='Now'
+                            disabled={true}
+                        />
+                    </div>
+                ) : (
+                    <div className='form-group'>
+                        <h4>To Date</h4>
+                        <input
+                            type='date'
+                            name='to'
+                            value={to}
+                            onChange={e => onChange(e)}
+                        />
+                    </div>
+                )}
+
                 <div className='form-group'>
                     <textarea
                         name='description'
