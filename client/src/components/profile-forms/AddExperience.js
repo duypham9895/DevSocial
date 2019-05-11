@@ -19,8 +19,8 @@ const AddExperience = ({ addExperience, history }) => {
 
     const {
         company,
-        location,
         title,
+        location,
         from,
         to,
         current,

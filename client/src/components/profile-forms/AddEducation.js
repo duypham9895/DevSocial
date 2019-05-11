@@ -19,8 +19,8 @@ const AddEducation = ({ addEducation, history }) => {
 
     const {
         school,
-        fieldofstudy,
         degree,
+        fieldofstudy,
         from,
         to,
         current,
@@ -28,9 +28,9 @@ const AddEducation = ({ addEducation, history }) => {
     } = formData;
 
     const onChange = e => {
-        if (from > to) {
-            return;
-        }
+        // if (Date.parse(from) > Date.parse(to)) {
+        //     return;
+        // }
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -73,7 +73,7 @@ const AddEducation = ({ addEducation, history }) => {
                 <div className='form-group'>
                     <input
                         type='text'
-                        placeholder='* Field of Study'
+                        placeholder='Field of Study'
                         name='fieldofstudy'
                         value={fieldofstudy}
                         onChange={e => onChange(e)}
@@ -106,27 +106,16 @@ const AddEducation = ({ addEducation, history }) => {
                         Current Study
                     </p>
                 </div>
-                {current ? (
-                    <div className='form-group'>
-                        <h4>To Date</h4>
-                        <input
-                            type='text'
-                            name='to'
-                            value='Now'
-                            disabled={true}
-                        />
-                    </div>
-                ) : (
-                    <div className='form-group'>
-                        <h4>To Date</h4>
-                        <input
-                            type='date'
-                            name='to'
-                            value={to}
-                            onChange={e => onChange(e)}
-                        />
-                    </div>
-                )}
+                <div className='form-group'>
+                    <h4>To Date</h4>
+                    <input
+                        type='date'
+                        name='to'
+                        value={to}
+                        onChange={e => onChange(e)}
+                        disabled={toDateDisabled ? 'disabled' : ''}
+                    />
+                </div>
 
                 <div className='form-group'>
                     <textarea

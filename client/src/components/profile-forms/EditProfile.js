@@ -47,7 +47,7 @@ const EditProfile = ({
             instagram:
                 loading || !profile.social ? '' : profile.social.instagram
         });
-    }, [loading]);
+    }, [loading, getCurrentProfile]);
     const {
         company,
         website,
@@ -254,7 +254,7 @@ const EditProfile = ({
 
                 <input type='submit' className='btn btn-primary my-1' />
                 <Link className='btn btn-light my-1' to='/dashboard'>
-                    Go Back
+                    Go Back To Dashboard
                 </Link>
             </form>
         </Fragment>
