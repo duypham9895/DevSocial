@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://anhduy:duy123@cluster0-mbbcz.mongodb.net/devconnector",
+    "jwtSecret": "p3o95c0Jcq36Pt7zXMUa",
+    "githubClientId": "4b3b8a202344f521ff10",
+    "githubSecret": "e8015c6bef91ee8b7ab24b31d0cd46a85a62b217"
+}
