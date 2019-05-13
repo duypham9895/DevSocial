@@ -413,8 +413,8 @@ img {
 
 .landing {
     position: relative;
-    background: url('./img/annie-spratt-608001-unsplash.jpg') no-repeat center
-        center/cover;
+    background: url('./img/rsz_annie-spratt-608001-unsplash.jpg') no-repeat
+        center center/cover;
     height: 100vh;
 }
 
